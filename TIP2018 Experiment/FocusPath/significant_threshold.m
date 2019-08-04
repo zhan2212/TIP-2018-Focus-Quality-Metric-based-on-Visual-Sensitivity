@@ -1,0 +1,9 @@
+function [threshold] = significant_threshold(c)
+[pdf, x] = hist(c, 50);
+cdf = cumsum(pdf)/sum(pdf);
+threshold = .97;
+min_val = min(cdf);
+max_val = max(cdf);
+rng_val = max_val - min_val;
+indx = cdf < min_val + threshold*rng_val;
+threshold = x(sum(indx));
